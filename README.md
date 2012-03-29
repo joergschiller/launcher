@@ -16,6 +16,10 @@ Please put the current user into the games group, and log out and login afterwar
 
     sudo gpasswd -a `whoami` games
 
+Be sure that libusb-dev is installed before ```bundle```. Only libusb < 1.0 is supported.
+
+    sudo apt-get install libusb-dev
+
 ## Getting Started:
 
     git clone git@github.com:joergschiller/launcher.git
