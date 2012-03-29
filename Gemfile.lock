@@ -1,10 +1,14 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    cuba (3.0.0)
+      rack
+    rack (1.4.1)
     ruby-usb (0.2.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  cuba
   ruby-usb

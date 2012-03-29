@@ -1,5 +1,3 @@
-require "rubygems"
-require "bundler/setup"
 require "usb"
 
 # Usage example
@@ -40,6 +38,10 @@ class Launcher
       sleep duration * 0.001
       execute :stop
     end
+  end
+
+  def launcher
+    @launcher
   end
 
   private
