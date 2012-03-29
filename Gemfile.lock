@@ -5,6 +5,7 @@ GEM
       rack
     rack (1.4.1)
     ruby-usb (0.2.1)
+    tilt (1.3.3)
 
 PLATFORMS
   ruby
@@ -12,3 +13,4 @@ PLATFORMS
 DEPENDENCIES
   cuba
   ruby-usb
+  tilt

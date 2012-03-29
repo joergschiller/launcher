@@ -18,6 +18,8 @@ class Launcher
   def initialize
     @launcher = USB.devices.select { |d| d.idVendor == 0x2123 && d.idProduct == 0x1010 }.first
 
+    raise "No missile launcher found." unless @launcher
+
     @launcher.open do |h|
       begin
         h.usb_detach_kernel_driver_np 0, 0
@@ -40,8 +42,8 @@ class Launcher
     end
   end
 
-  def launcher
-    @launcher
+  def to_s
+    [@launcher.product, @launcher.manufacturer].join " by "
   end
 
   private

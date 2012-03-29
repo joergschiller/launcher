@@ -1,12 +1,17 @@
 require "cuba"
+require "cuba/render"
 require "./launcher"
 
 class API < Cuba
 
-  @@launcher = Launcher.new
+  class MockedLauncher
+    def method_missing(method, *args, &block) end
+    def to_s; "Mock'ed launcher" end
+  end
 
   def self.launcher
-    @@launcher
+    @@launcher ||= Launcher.new rescue nil
+    @@launcher || MockedLauncher.new
   end
 
 end
@@ -14,21 +19,18 @@ end
 API.define do
 
   on root do
-    res.write "Connected to #{API.launcher.launcher.product} by #{API.launcher.launcher.manufacturer}"
+    res.write "Connected to #{API.launcher}."
   end
 
-  on "execute" do
-    on post do
-      on param("command") do |command|
-        if Launcher::COMMANDS.include? command.to_sym
-          API.launcher.send command.to_sym
-        end
+  on post do
+    on ":command" do |command|
+      if Launcher::COMMANDS.include? command.to_sym
+        API.launcher.send command.to_sym, req["duration"]
       end
     end
   end
 
 end
 
-Cuba.define do
-  run API
-end
+Cuba.plugin Cuba::Render
+Cuba.define { run API }
